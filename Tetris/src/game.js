@@ -24,9 +24,7 @@ export default class Game {
             }
         }
 
-        for (let y = 0; y < this.activePiece.blocks.length; y++) {
-            playfield[y] = [];
-            
+        for (let y = 0; y < this.activePiece.blocks.length; y++) { 
             for (let x = 0; x < this.activePiece.blocks[y].length; x++) {
                 if (this.activePiece.blocks[y][x]) {
                     playfield[this.activePiece.y + y][this.activePiece.x + x] = this.activePiece.blocks[y][x];
