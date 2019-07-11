@@ -46,15 +46,67 @@ export default class Game {
     }
 
     createPiece() {
-        return {
-            x: 0,
-            y: 0,
-            blocks: [
-                [0,1,0],
-                [1,1,1],
-                [0,0,0]
-            ]
+        const index = Math.floor(Math.random() * 7);
+        const type = 'IJLOSTZ'[index];
+        const piece = { x: 0, y: 0 };
+
+        switch (type) {
+            case 'I':
+                piece.blocks = [
+                    [0,0,0,0],
+                    [1,1,1,1],
+                    [0,0,0,0],
+                    [0,0,0,0]
+                ];
+                break;
+            case 'J':
+                piece.blocks = [
+                    [0,0,0],
+                    [1,1,1],
+                    [0,0,1]
+                ];
+                break;
+            case 'L':
+                piece.blocks = [
+                    [0,0,0],
+                    [1,1,1],
+                    [1,0,0]
+                ];
+                break;
+            case 'O':
+                piece.blocks = [
+                    [0,0,0,0],
+                    [0,1,1,0],
+                    [0,1,1,0],
+                    [0,0,0,0],
+                ];
+                break;
+            case 'S':
+                piece.blocks = [
+                    [0,0,0],
+                    [0,1,1],
+                    [1,1,0]
+                ];
+                break;
+            case 'T':
+                piece.blocks = [
+                    [0,0,0],
+                    [1,1,1],
+                    [0,1,0,]
+                ];
+                break;
+            case 'Z':
+                piece.blocks = [
+                    [0,0,0],
+                    [1,1,0],
+                    [0,1,1],
+                ];
+                break;
+            default:
+                throw new Error('Неизвестный тип фигуры');
         }
+
+        return piece;
     }
 
     movePieceLeft() {
