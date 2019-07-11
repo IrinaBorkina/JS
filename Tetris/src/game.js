@@ -3,15 +3,8 @@ export default class Game {
     lines = 0;
     level = 0;
     playfield = this.createPlayfield();
-    activePiece = {
-        x: 0,
-        y: 0,
-        blocks: [
-            [0,1,0],
-            [1,1,1],
-            [0,0,0]
-        ]
-    };
+    activePiece = this.createPiece();
+    nextPiece = this.createPiece();
 
     getState() {
         const playfield = this.createPlayfield();
@@ -52,6 +45,18 @@ export default class Game {
         return playfield;
     }
 
+    createPiece() {
+        return {
+            x: 0,
+            y: 0,
+            blocks: [
+                [0,1,0],
+                [1,1,1],
+                [0,0,0]
+            ]
+        }
+    }
+
     movePieceLeft() {
         this.activePiece.x -= 1;
 
@@ -74,6 +79,7 @@ export default class Game {
         if (this.hasCollision()) {
             this.activePiece.y -= 1;
             this.lockPiece();
+            this.updatePieces();
         }
     }
 
@@ -138,5 +144,10 @@ export default class Game {
                 }
             }
         }
+    }
+
+    updatePieces() {
+        this.activePiece = this.nextPiece;
+        this.nextPiece = this.createPiece();
     }
 }
