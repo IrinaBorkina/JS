@@ -21,7 +21,7 @@ for (let y = 18; y > 0; y--) {
     }
 }
 
-let x = 5; y = 10;
+let x = 5; y = 15;
 let mainArr = [
     //палка
     [
@@ -29,12 +29,48 @@ let mainArr = [
         [0, 2],
         [0, 3]
     ],
+
     // квадрат
     [
         [1, 0],
         [0, 1],
         [1, 1]
     ],
+
+    // буква L
+    [
+        [1, 0],
+        [0, 1],
+        [0, 2]
+    ],
+
+    // зеркальная буква L
+    [
+        [1, 0],
+        [1, 1],
+        [1, 2]
+    ],
+
+    // молния вправо
+    [
+        [1, 0],
+        [-1, 1],
+        [0, 1]
+    ],
+
+    // молния влево
+    [
+        [1, 0],
+        [1, 1],
+        [2, 1]
+    ],
+
+    // деталь Лего
+    [
+        [1, 0],
+        [2, 0],
+        [1, 1]
+    ]
 ]
 
 let currentFigure = 0;
@@ -51,7 +87,7 @@ function create() {
         document.querySelector(`[posX = "${x}"][posY = "${y}"]`),
         document.querySelector(`[posX = "${x + mainArr[currentFigure][0][0]}"][posY = "${y + mainArr[currentFigure][0][1]}"]`),
         document.querySelector(`[posX = "${x + mainArr[currentFigure][1][0]}"][posY = "${y + mainArr[currentFigure][1][1]}"]`),
-        document.querySelector(`[posX = "${x + mainArr[currentFigure][0][0]}"][posY = "${y + mainArr[currentFigure][2][1]}"]`)
+        document.querySelector(`[posX = "${x + mainArr[currentFigure][2][0]}"][posY = "${y + mainArr[currentFigure][2][1]}"]`)
     ]
 
     for (let i = 0; i < figureBody.length; i++) {
