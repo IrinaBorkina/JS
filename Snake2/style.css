@@ -25,6 +25,7 @@ body {
     background: url(body.png);
     background-size: cover;
     border-radius: 50%;
+    transform: scale(0.9);
 }
 
 .head {
