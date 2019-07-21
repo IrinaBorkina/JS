@@ -25,4 +25,18 @@ for (let i = 0; i < block.length; i++) {
     x++;
 }
 
+// создаем змею
+function generateSnake() {
+    let posX = Math.round(Math.random() * (10 - 3) + 3);
+    let posY = Math.round(Math.random() * (10 - 1) + 1);
+    return [posX, posY];
+}
 
+let coordinates = generateSnake();
+
+let snakeBody = [document.querySelector('[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'), document.querySelector('[posX = "' + (coordinates[0] - 1) + '"][posY = "' + coordinates[1] + '"]'), document.querySelector('[posX = "' + (coordinates[0] - 2) + '"][posY = "' + coordinates[1] + '"]')];
+
+for (let i = 0; i < snakeBody.length; i++) {
+    snakeBody[i].classList.add('snakeBody');
+}
+snakeBody[0].classList.add('head');
