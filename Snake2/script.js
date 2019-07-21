@@ -98,6 +98,15 @@ function move() {
         }
     }
 
+    if (snakeBody[0].getAttribute('posX') == food.getAttribute('posX')
+        && snakeBody[0].getAttribute('posY') == food.getAttribute('posY')) {
+            food.classList.remove('food');
+            let a = snakeBody[snakeBody.length - 1].getAttribute('posX');
+            let b = snakeBody[snakeBody.length - 1].getAttribute('posY');
+            snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b + '"]'));
+            createFood();
+        }
+
     snakeBody[0].classList.add('head');
     for (let i = 0; i < snakeBody.length; i++) {
         snakeBody[i].classList.add('snakeBody');
