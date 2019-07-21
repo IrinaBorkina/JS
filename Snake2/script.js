@@ -40,3 +40,26 @@ for (let i = 0; i < snakeBody.length; i++) {
     snakeBody[i].classList.add('snakeBody');
 }
 snakeBody[0].classList.add('head');
+
+// создаем еду
+let food;
+
+function createFood() {
+    function generateFood() {
+        let posX = Math.round(Math.random() * (10 - 3) + 3);
+        let posY = Math.round(Math.random() * (10 - 1) + 1);
+        return [posX, posY];
+    }
+
+    let foodCoordinates = generateFood();
+    food = document.querySelector('[posX = "' + foodCoordinates[0] + '"][posY = "' + foodCoordinates[1] + '"]');
+    
+    while (food.classList.contains('snakeBody')) {
+        let foodCoordinates = generateFood();
+        food = document.querySelector('[posX = "' + foodCoordinates[0] + '"][posY = "' + foodCoordinates[1] + '"]');
+    }
+
+    food.classList.add('food');
+}
+
+createFood();

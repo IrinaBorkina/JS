@@ -32,3 +32,8 @@ body {
     background-size: cover;
     border-radius: 10%;
 }
+
+.food {
+    background: url(food.png);
+    background-size: cover;
+}
