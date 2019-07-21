@@ -64,6 +64,7 @@ function createFood() {
 createFood();
 
 let direction = 'right';
+let steps = false;
 
 // добавляем движение во всех направлениях
 function move() {
@@ -98,6 +99,7 @@ function move() {
         }
     }
 
+    //поедание еды и рост змейки
     if (snakeBody[0].getAttribute('posX') == food.getAttribute('posX')
         && snakeBody[0].getAttribute('posY') == food.getAttribute('posY')) {
             food.classList.remove('food');
@@ -105,24 +107,42 @@ function move() {
             let b = snakeBody[snakeBody.length - 1].getAttribute('posY');
             snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b + '"]'));
             createFood();
-        }
+    }
+
+    if (snakeBody[0].classList.contains('snakeBody')) {
+        setTimeout(() => {
+            alert('Игра окончена!');
+        }, 200);
+
+        clearInterval(interval);
+        snakeBody[0].style.background = 'url(game_over.png) center no-repeat';
+        snakeBody[0].style.backgroundSize = 'cover';
+    }
 
     snakeBody[0].classList.add('head');
     for (let i = 0; i < snakeBody.length; i++) {
         snakeBody[i].classList.add('snakeBody');
     }
+
+    steps = true;
 }
 
 let interval = setInterval(move, 300);
 
 window.addEventListener('keydown', function(e) {
-    if (e.keyCode == 37 && direction != 'right') {
-        direction = 'left';
-    } else if (e.keyCode == 38 && direction != 'down') {
-        direction = 'up';
-    } else if (e.keyCode == 39 && direction != 'left') {
-        direction = 'right';
-    } else if (e.keyCode == 40 && direction != 'up') {
-        direction = 'down';
+    if (steps == true) {
+        if (e.keyCode == 37 && direction != 'right') {
+            direction = 'left';
+            steps = false;
+        } else if (e.keyCode == 38 && direction != 'down') {
+            direction = 'up';
+            steps = false;
+        } else if (e.keyCode == 39 && direction != 'left') {
+            direction = 'right';
+            steps = false;
+        } else if (e.keyCode == 40 && direction != 'up') {
+            direction = 'down';
+            steps = false;
+        }
     }
 });
