@@ -11,7 +11,7 @@ export default class Controller {
         this.view.renderStartScreen();
     }
 
-    update () {
+    update() {
         this.game.movePieceDown();
         this.updateView();
     }
@@ -22,13 +22,18 @@ export default class Controller {
         this.updateView();
     }
 
-    pause () {
+    pause() {
         this.isPlaying = false;
         this.stopTimer();
         this.updateView();
     }
 
-    updateView () {
+    reset() {
+        this.game.reset();
+        this.play();
+    }
+
+    updateView() {
         const state = this.game.getState();
 
         if (state.isGameOver) {
@@ -40,7 +45,7 @@ export default class Controller {
         }
     }
 
-    startTimer () {
+    startTimer() {
         const speed = 1000 - this.game.getState().level * 100;
 
         if (!this.intervalId) {
@@ -50,17 +55,21 @@ export default class Controller {
         }
     }
 
-    stopTimer () {
+    stopTimer() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
             this.intervalId = null;
         }
     }
 
-    handleKeyDown (event) {
+    handleKeyDown(event) {
+        const state = this.game.getState();
+
         switch (event.keyCode) {
             case 13:
-                if (this.isPlaying) {
+                if (state.isGameOver) {
+                    this.reset();
+                } else if (this.isPlaying) {
                     this.pause();
                 } else {
                     this.play();
@@ -86,7 +95,7 @@ export default class Controller {
         }
     }
 
-    handleKeyUp (event) {
+    handleKeyUp(event) {
         switch (event.keyCode) {
             case 40:
                 this.startTimer();
