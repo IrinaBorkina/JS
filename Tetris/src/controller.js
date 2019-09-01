@@ -28,10 +28,14 @@ export default class Controller {
     }
 
     updateView () {
-        if (!this.isPlaying) {
+        const state = this.game.getState();
+
+        if (state.isGameOver) {
+            this.view.renderEndScreen(state);
+        } else if (!this.isPlaying) {
             this.view.renderPauseScreen();
         } else {
-            this.view.renderMainScreen(this.game.getState());
+            this.view.renderMainScreen(state);
         }
     }
 
@@ -63,19 +67,19 @@ export default class Controller {
                 break;
             case 37:
                 this.game.movePieceLeft();
-                this.view.renderMainScreen(this.game.getState());
+                this.updateView();
                 break;
             case 38:
                 this.game.rotatePiece();
-                this.view.renderMainScreen(this.game.getState());
+                this.updateView();
                 break;
             case 39:
                 this.game.movePieceRight();
-                this.view.renderMainScreen(this.game.getState());
+                this.updateView();
                 break;
             case 40:
                 this.game.movePieceDown();
-                this.view.renderMainScreen(this.game.getState());
+                this.updateView();
                 break;
         }
     }
