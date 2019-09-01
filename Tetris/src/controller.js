@@ -2,10 +2,8 @@ export default class Controller {
     constructor (game, view) {
         this.game = game;
         this.view = view;
-
-        setInterval(() => {
-            this.update();
-        }, 1000);
+        this.intervalId = null;
+        this.isPlaying = false;
 
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
 
@@ -14,13 +12,53 @@ export default class Controller {
 
     update () {
         this.game.movePieceDown();
-        this.view.renderMainScreen(this.game.getState());
+        this.updateView();
+    }
+
+    play () {
+        this.isPlaying = true;
+        this.startTimer();
+        this.updateView();
+    }
+
+    pause () {
+        this.isPlaying = false;
+        this.stopTimer();
+        this.updateView();
+    }
+
+    updateView () {
+        if (!this.isPlaying) {
+            this.view.renderPauseScreen();
+        } else {
+            this.view.renderMainScreen(this.game.getState());
+        }
+    }
+
+    startTimer () {
+        if (!this.intervalId) {
+            this.intervalId = setInterval(() => {
+                this.update();
+            }, 1000);
+        }
+    }
+
+    stopTimer () {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
     }
 
     handleKeyDown (event) {
         switch (event.keyCode) {
             case 13:
-                this.view.renderMainScreen(this.game.getState());
+                if (this.isPlaying) {
+                    this.pause();
+                } else {
+                    this.play();
+                }
+                break;
             case 37:
                 this.game.movePieceLeft();
                 this.view.renderMainScreen(this.game.getState());
